@@ -5,79 +5,137 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "chat_messages")
+@Table(name = "tr_konsultasi")
 public class Konseling {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long msgId;
+    @Column(name = "kon_id")
+    private Integer id;
 
-    private String senderUsername;
-    private String receiverUsername;
-    private String messageContent;
-    private String messageType;
-    private Boolean isRead;
-    private LocalDateTime createdAt;
+    @ManyToOne
+    @JoinColumn(name = "kon_topik") // foreign key
+    private Topik topik;
 
-    @PrePersist
-    public void prePersist() {
-        createdAt = LocalDateTime.now();
-        if (isRead == null) isRead = false;
-        if (messageType == null) messageType = "text";
+    @Column(name = "usr_id", nullable = false)
+    private Integer userId;
+
+    @Column(name = "kon_tgl_mulai")
+    private LocalDateTime tglMulai;
+
+    @Column(name = "kon_tgl_selesai")
+    private LocalDateTime tglSelesai;
+
+    @Column(name = "kon_status")
+    private String status;
+
+    @Column(name = "kon_created_by")
+    private String createdBy;
+
+    @Column(name = "kon_created_date")
+    private LocalDateTime createdDate;
+
+    @Column(name = "kon_modif_by")
+    private String modifBy;
+
+    @Column(name = "kon_modif_date")
+    private LocalDateTime modifDate;
+
+    public Konseling() {
     }
 
-    public Long getMsgId() {
-        return msgId;
+
+
+    public Konseling(Integer id,Topik topik, Integer userId, LocalDateTime tglMulai, LocalDateTime tglSelesai, String status, String createdBy, LocalDateTime createdDate, String modifBy, LocalDateTime modifDate) {
+        this.id = id;
+        this.topik = topik;
+        this.userId = userId;
+        this.tglMulai = tglMulai;
+        this.tglSelesai = tglSelesai;
+        this.status = status;
+        this.createdBy = createdBy;
+        this.createdDate = createdDate;
+        this.modifBy = modifBy;
+        this.modifDate = modifDate;
     }
 
-    public void setMsgId(Long msgId) {
-        this.msgId = msgId;
+    public Topik getTopik() {
+        return topik;
     }
 
-    public String getSenderUsername() {
-        return senderUsername;
+    public void setTopik(Topik topik) {
+        this.topik = topik;
     }
 
-    public void setSenderUsername(String senderUsername) {
-        this.senderUsername = senderUsername;
+    public Integer getId() {
+        return id;
     }
 
-    public String getReceiverUsername() {
-        return receiverUsername;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setReceiverUsername(String receiverUsername) {
-        this.receiverUsername = receiverUsername;
+
+    public Integer getUserId() {
+        return userId;
     }
 
-    public String getMessageContent() {
-        return messageContent;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public void setMessageContent(String messageContent) {
-        this.messageContent = messageContent;
+    public LocalDateTime getTglMulai() {
+        return tglMulai;
     }
 
-    public String getMessageType() {
-        return messageType;
+    public void setTglMulai(LocalDateTime tglMulai) {
+        this.tglMulai = tglMulai;
     }
 
-    public void setMessageType(String messageType) {
-        this.messageType = messageType;
+    public LocalDateTime getTglSelesai() {
+        return tglSelesai;
     }
 
-    public Boolean getRead() {
-        return isRead;
+    public void setTglSelesai(LocalDateTime tglSelesai) {
+        this.tglSelesai = tglSelesai;
     }
 
-    public void setRead(Boolean read) {
-        isRead = read;
+    public String getStatus() {
+        return status;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getModifBy() {
+        return modifBy;
+    }
+
+    public void setModifBy(String modifBy) {
+        this.modifBy = modifBy;
+    }
+
+    public LocalDateTime getModifDate() {
+        return modifDate;
+    }
+
+    public void setModifDate(LocalDateTime modifDate) {
+        this.modifDate = modifDate;
     }
 }

@@ -16,8 +16,12 @@ public class PenggunaService {
     @Autowired
     PenggunaRepository mPenggunaRepository;
 
-    public Pengguna getPengguna(String id){
+    public Pengguna getPenggunaUsername(String id){
         Pengguna Pengguna = mPenggunaRepository.getUserByUsername(id);
+        return Pengguna;
+    }
+    public Pengguna getPengguna(int id){
+        Pengguna Pengguna = mPenggunaRepository.getPenggunaById(id);
         return Pengguna;
     }
 

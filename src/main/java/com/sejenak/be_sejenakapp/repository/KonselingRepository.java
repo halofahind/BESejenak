@@ -2,11 +2,14 @@ package com.sejenak.be_sejenakapp.repository;
 
 import com.sejenak.be_sejenakapp.vo.Konseling;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+@Repository("KonselingRepository")
+public interface KonselingRepository extends JpaRepository<Konseling, Integer> {
 
-public interface KonselingRepository extends JpaRepository<Konseling, Long> {
-    List<Konseling> findBySenderUsernameAndReceiverUsernameOrReceiverUsernameAndSenderUsername(
-            String sender1, String receiver1, String sender2, String receiver2
-    );
+    List<Konseling> findAll();
+
+    Konseling getKonselingById(int id);
+
 }

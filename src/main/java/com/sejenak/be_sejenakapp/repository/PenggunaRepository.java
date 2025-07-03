@@ -7,13 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository("PenggunaRepository")
-public interface PenggunaRepository extends JpaRepository<Pengguna, String> {
-    @Query("SELECT u FROM Pengguna u WHERE u.username = ?1")
+public interface PenggunaRepository extends JpaRepository<Pengguna, Integer> {
     Pengguna getUserByUsername(String usrname);
 
-    @Query(value = "SELECT * FROM Pengguna", nativeQuery = true)
     List<Pengguna> findAll();
 
+    Pengguna getPenggunaById(int id);
     Pengguna findByUsernameAndPassword(String username, String password);
 
 }

@@ -1,6 +1,7 @@
 package com.sejenak.be_sejenakapp.controller;
 
 import com.sejenak.be_sejenakapp.service.PenggunaService;
+import com.sejenak.be_sejenakapp.vo.Konseling;
 import com.sejenak.be_sejenakapp.vo.Pengguna;
 import com.sejenak.be_sejenakapp.vo.Result;
 import jakarta.servlet.http.HttpServletResponse;
@@ -56,7 +57,13 @@ public class PenggunaController {
     }
 
     @GetMapping("/pengguna")
-    public Pengguna getPengguna(@RequestParam String id) {
+    public Pengguna getPengguna(@RequestParam String username) {
+        Pengguna pengguna = mPenggunaService.getPenggunaUsername(username);
+        return pengguna;
+    }
+
+    @GetMapping("/penggunaid")
+    public Pengguna getPenggunaId(@RequestParam int id) {
         Pengguna pengguna = mPenggunaService.getPengguna(id);
         return pengguna;
     }
