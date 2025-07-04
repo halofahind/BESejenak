@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TopikService {
@@ -35,16 +36,16 @@ public class TopikService {
         }
         return  isSuccess;
     }
-    public boolean updateTopik(Topik topik){
-        Topik result = mTopikRepository.getTopikById(topik.getId());
-        if (result == null){
-            return false;
+    public Topik updateTopik(Topik param) {
+        Optional<Topik> existingTopik = mTopikRepository.findById(param.getId());
+        if (existingTopik.isPresent()) {
+            Topik topikToUpdate = existingTopik.get();
+            topikToUpdate.setNama(param.getNama());
+            topikToUpdate.setPesanPertama(param.getPesanPertama());
+            topikToUpdate.setPesanTerakhir(param.getPesanTerakhir());
+            return mTopikRepository.save(topikToUpdate);
         }
-        if (StringUtils.hasLength(topik.getNama())){
-            result.setNama(topik.getNama());
-        }
-        mTopikRepository.save(result);
-        return true;
+        return null;
     }
 
     public boolean deleteTopik(int id){

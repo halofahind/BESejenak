@@ -23,6 +23,11 @@ public class KonselingService {
         return Konseling;
     }
 
+    public List<Konseling> getKonselingByUser(int id){
+        List<Konseling> konseling = mKonselingRepository.getKonselingByUserId(id);
+        return konseling;
+    }
+
     public List<Konseling> getKonselings(){
         List<Konseling> konselingList = mKonselingRepository.findAll();
         return konselingList;

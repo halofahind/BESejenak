@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -92,7 +93,6 @@ public class KonselingController {
         Konseling konseling = mKonselingService.getKonseling(id);
         return konseling;
     }
-
 
     @GetMapping("/detailKonselings")
     public List<DetailKonseling> getDetailKonselings() {

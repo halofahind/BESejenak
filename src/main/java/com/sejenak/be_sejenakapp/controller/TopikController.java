@@ -38,14 +38,26 @@ public class TopikController {
         }
     }
 
-    @PutMapping("/topik")
-    public Object updateTopik(HttpServletResponse response, @RequestBody Topik param) {
-        boolean isSuccess = mTopikService.updateTopik(param);
-        if (isSuccess) {
-            return new Result(200, "Success");
-        } else {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return new Result(500, "Failed to update topik");
+    @PutMapping("/topik/{id}")
+    public ResponseEntity<Result> updateTopik(
+            @PathVariable int id,
+            @RequestBody Topik param,
+            HttpServletResponse response) {
+
+        param.setId(id); // Pastikan ID diset
+
+        try {
+            Topik updatedTopik = mTopikService.updateTopik(param);
+            if (updatedTopik != null) {
+                return ResponseEntity.ok()
+                        .body(new Result(200, "Success"));
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(new Result(500, "Failed to update topik"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Result(500, "Error: " + e.getMessage()));
         }
     }
 
